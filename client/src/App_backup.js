@@ -27,7 +27,7 @@ function App() {
 
         const contract = new web3.eth.Contract(ResearchPaperBid.abi, deployedNetwork.address, {
           from: '0xEba1B25c50e0347CA532745078AA06efF6De5b51',
-          gas: '3000000000000'
+          gas: '3000000'
         });
         console.log(contract);
 
