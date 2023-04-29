@@ -23,7 +23,8 @@ function RegisterPaper() {
         const author_address = document.querySelector("#value8").value;
         const paper_name = document.querySelector("#value7").value;
         const paper_data = document.querySelector("#value9").value;
-        axios.post('http://localhost:3001/api/registered_paper/add', { author_address: author_address, paper_name: paper_name, uid: 124, paper_data: paper_data })
+        const uid = Math.floor(Math.random() * 1000000);
+        axios.post('http://localhost:3001/api/registered_paper/add', { author_address: author_address, paper_name: paper_name, uid: uid, paper_data: paper_data })
             .then(response => {
             setPapers([...papers, response.data]);
         //setNewTodoTitle('');
