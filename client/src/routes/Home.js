@@ -2,7 +2,7 @@
 import Web3 from "web3";
 import {useState, useEffect, createContext} from "react";
 import ResearchPaperBid from "../contracts/ResearchPapers.json"
-import Reports from "./Reports";
+import PaperDetails from "./PaperDetails";
 //import './App.css';
 import { utils } from 'ethers';
 
@@ -46,8 +46,6 @@ function Home() {
 
   return(
     <div className="home">
-      {/* <p>State is {state}</p> */}
-      {/* <Reports/> */}
       <h1>Welcome to Bidding system for Research papers</h1>
     </div>
   );

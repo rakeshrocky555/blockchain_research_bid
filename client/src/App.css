@@ -8,9 +8,10 @@
 }
 
 .home,
-.reports,
-.products,
-.registerpaper{
+.paperdetails,
+.bidding,
+.registerpaper,
+.approvepaper{
   display: flex;
   height: 90vh;
   align-items: center;

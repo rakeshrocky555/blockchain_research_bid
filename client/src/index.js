@@ -8,11 +8,12 @@ import {
   Outlet,
   createRoutesFromElements,
 } from "react-router-dom";
-import Products from "./routes/Products";
+import Bidding from "./routes/Bidding";
 import Home from "./routes/Home";
-import Reports from "./routes/Reports";
+import PaperDetails from "./routes/PaperDetails";
 import Navbar from "./components/Navbar";
 import RegisterPaper from "./routes/RegisterPaper";
+import ApprovePaper from "./routes/ApprovePaper";
 import "./App.css";
 import App from "./App"
 
@@ -44,16 +45,20 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "products",
-        element: <Products/>,
+        path: "bidding",
+        element: <Bidding/>,
       },
       {
-        path: "reports",
-        element: <Reports/>,
+        path: "paperdetails",
+        element: <PaperDetails/>,
       },
       {
         path: "registerpaper",
         element: <RegisterPaper/>
+      },
+      {
+        path: "approvepaper",
+        element: <ApprovePaper/>
       },
     ],
   },

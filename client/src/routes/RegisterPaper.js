@@ -3,10 +3,6 @@ import {useState, useEffect, useContext} from "react";
 //below module is used to use API
 import axios from 'axios';
 
-import Web3 from "web3";
-
-import ResearchPaperBid from "../contracts/ResearchPapers.json"
-
 //const {Client} = require('../database');
 
 

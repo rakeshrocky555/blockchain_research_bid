@@ -2,7 +2,7 @@ import Web3 from "web3";
 import {useState, useEffect, useContext} from "react";
 import ResearchPaperBid from "../contracts/ResearchPapers.json"
 
-function Reports() {
+function PaperDetails() {
 
   const [author_address, set_author_address] = useState("Nil");
   const [state, setState] = useState({web3: null, contract: null});
@@ -29,7 +29,6 @@ function Reports() {
     provider && template();
   }, []);
 
-  console.log("Inside reports file", state);
 
   async function research_paper_details(){
     const {contract} = state;
@@ -39,8 +38,8 @@ function Reports() {
   }
 
   return (
-    <div className="reports">
-      <h1>Reports</h1>
+    <div className="paperdetails">
+      {/* <h1>Paper</h1> */}
       <br></br>
       <p>Please enter token ID to find the owner of the research paper</p>
       <label for="value3">Token ID</label>
@@ -50,9 +49,8 @@ function Reports() {
       <p>Author address is: {author_address}</p>
       {/* <p id="owner_address"></p> */}
     </div>
-
     
   );
 }
 
-export default Reports;
+export default PaperDetails;

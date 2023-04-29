@@ -4,7 +4,7 @@ import Web3 from "web3";
 import {useState, useEffect, useContext} from "react";
 import ResearchPaperBid from "../contracts/ResearchPapers.json"
 
-function Products() {
+function Bidding() {
 
   const [author_address, set_author_address] = useState("Nil");
   const [state, setState] = useState({web3: null, contract: null});
@@ -31,7 +31,6 @@ function Products() {
     provider && template();
   }, []);
 
-  console.log("Inside reports file", state);
 
   async function open_bidding(){
     const {contract} = state;
@@ -64,7 +63,7 @@ function Products() {
   }
 
   return (
-    <div className="products">
+    <div className="bidding">
       <h1>Reports</h1>
       <br></br>
       <p>Bidding Operations</p>
@@ -87,5 +86,5 @@ function Products() {
   );
 }
 
-export default Products;
+export default Bidding;
 
