@@ -6,6 +6,7 @@ import { utils } from 'ethers';
 
 function App() {
     //var details="";
+
     const [state, setState] = useState({web3: null, contract: null});
     //data to show to the user
     const [data, setData] = useState("Nil");

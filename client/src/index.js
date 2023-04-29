@@ -12,8 +12,11 @@ import Products from "./routes/Products";
 import Home from "./routes/Home";
 import Reports from "./routes/Reports";
 import Navbar from "./components/Navbar";
+import RegisterPaper from "./routes/RegisterPaper";
 import "./App.css";
 import App from "./App"
+
+//const client = require('pg');
 
 const AppLayout = () => (
   <>
@@ -47,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "reports",
         element: <Reports/>,
+      },
+      {
+        path: "registerpaper",
+        element: <RegisterPaper/>
       },
     ],
   },
