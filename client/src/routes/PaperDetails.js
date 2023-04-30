@@ -68,17 +68,19 @@ function PaperDetails() {
   return (
     <div className="paperdetails">
       {/* <h1>Paper</h1> */}
-      <br></br>
-      <p>Please enter token ID to find the owner of the research paper</p>
-      <label for="value3">Token ID</label>
+      <br/>
+      <p>Please enter token ID to find the details of the research paper</p>
+      <label for="value3">Enter Token ID here   </label>
       <input type = "text" id = "value3" name = "value3"></input>
-      <button onClick={research_paper_owner}>Get Author address</button>
-      <button onClick={research_paper_details}>Get Research Paper details</button>
-      {/*printing the owner address with the id*/}
+      <br/>
+      <br/><button class = "button pdet" onClick={research_paper_owner}>Get Author address</button><br/><br/>
       <p>Author address is: {author_address}</p>
+      <br/><button class = "button pdet" onClick={research_paper_details}>Get Research Paper details</button><br/><br/>
+      {/*printing the owner address with the id*/}
+      
       <p>Paper Name is: {pr_name}</p>
-      <p>Present Author is: {pres_owner}</p>
-      <p>Previous Owner is: {prev_owner}</p>
+      <p>Present owner is: {pres_owner}</p>
+      <p>Previous owner is: {prev_owner}</p>
       <p>Paper url is: {pr_url}</p>
       <p id="owner_address"></p>
     </div>

@@ -4,6 +4,8 @@ import Web3 from "web3";
 import ResearchPaperBid from "../contracts/ResearchPapers.json"
 //below module is used to use API
 import axios from 'axios';
+import "@blueprintjs/core/lib/css/blueprint.css";
+import '@blueprintjs/icons/lib/css/blueprint-icons.css';
 
 function ApprovePaper() {
 
@@ -67,13 +69,14 @@ function ApprovePaper() {
 
     return (
         <div className="approvepaper">
-        {/* <h1>Welcome to Bidding system for Research papers</h1> */}
-        <table>
+        <h1 className = "app-par">Showing registered papers data as below</h1><br/>
+        <table class="bp4-html-table bp4-html-table-bordered bp4-interactive">
           <thead>
             <tr>
               <th>Author address</th>
               <th>Paper Name</th>
               <th>Paper url</th>
+              <th>ID</th>
             </tr>
           </thead>
           <tbody>
@@ -90,22 +93,28 @@ function ApprovePaper() {
                     </a>
                     </div>
                   </td>
+                  <td>{row_val.uid}</td>
                 </tr>
               })
             }
           </tbody>
         </table>
 
-        
-        <label for="value1">Author address</label>
+        <br/><br/><br/>
+        <h1 className = "app-par">Please enter below details and click on Approve button to approve the research paper</h1>
+        <br/><br/>
+        <label for="value1" className = "app-par">Author address</label>
         <input type = "text" id = "value1" name = "value1"></input>
-        <label for="value2">Research paper name</label>
+        <label for="value2" className = "app-par">Research paper name</label>
         <input type = "text" id = "value2" name = "value2"></input>
-        <label for="value3">Paper url</label>
+        <label for="value3" className = "app-par">Paper url</label>
         <input type = "text" id = "value3" name = "value3"></input>
-        <label for="value4">ID</label>
+        <label for="value4" className = "app-par">ID</label>
         <input type = "text" id = "value4" name = "value4"></input>
-        <button onClick={approve_paper}>Approve paper</button>
+        <br/><br/>
+  
+        <button class = "button app" onClick={approve_paper}>Approve paper</button>
+
         </div>
     );
 }

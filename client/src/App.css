@@ -7,8 +7,18 @@
   font-family: "Lato", sans-serif;
 }
 
-.home,
-.paperdetails,
+/* for home page */
+.home{
+  display: flex;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  background-color: #000000ec;
+  color: #fff;
+  background-image: url('./images/image1.jpg');
+}
+
 .bidding,
 .registerpaper{
   display: flex;
@@ -20,14 +30,58 @@
   color: #fff;
 }
 
-.approvepaper{
-  display: flex;
+.paperdetails{
   height: 90vh;
   align-items: center;
   justify-content: center;
   font-size: 12;
-  background-color: #000;
+  /* background-color: #44515f; */
   color: #fff;
+  background-image: url('./images/image2.jpg');
+}
+
+.approvepaper{
+  /* display: flex; */
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+  font-size: 12;
+  /* background-color: #44515f; */
+  color: #fff;
+  background-image: url('./images/image5.jpeg');
+}
+
+.app-par{
+  color: #0a0909;
+}
+
+/*buttons*/
+.button{
+  border: none;
+  color: rgba(12, 12, 12, 0.979);
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.app {
+  background-color: #5a5e5b;
+  margin: 6px 400px;}
+.app:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.pdet {
+  background-color: #5a5e5b;
+  margin: 6px 40px;
+}
+.det:hover {
+  background-color: #4CAF50;
+  color: white;
 }
 
 /* Navbar CSS */
@@ -104,4 +158,35 @@
 
 span {
   margin-left: 16px;
+}
+
+/*additional css styles*/
+/*home page*/
+.animate-charcter
+{
+  /* text-transform: uppercase; */
+  background-image: linear-gradient(
+    -225deg,
+    #ebebf1b9 0%,
+    #107a27 29%,
+    #c50707 67%,
+    #29658a 100%
+  );
+  font-family: Georgia;
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 2s linear infinite;
+  display: inline-block;
+      font-size: 55px;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
 }

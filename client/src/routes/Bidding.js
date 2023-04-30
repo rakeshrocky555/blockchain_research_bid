@@ -80,6 +80,8 @@ function Bidding() {
     contract.events.Sample((error, result) => {
       if (!error){
         console.log("Event result is: ", result);
+        //send notif ui
+        alert("Bidding started");
       }
     });
   //   console.log("Contract is", contract);
@@ -91,6 +93,7 @@ function Bidding() {
     //do we need to use call or send
     //const details = await contract.methods.start_bidding(tokenId).call({from: "0x2D29F6760062F540F168a1fC247b44ffE533c094"});
     
+    console.log("Before start bid");
     const details = await contract.methods.start_bidding(tokenId).send({from: ownerAddress});
     //for refreshing the page
     //window.location.reload();

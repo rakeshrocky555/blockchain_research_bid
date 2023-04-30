@@ -46,7 +46,7 @@ function Home() {
 
   return(
     <div className="home">
-      <h1>Welcome to Bidding system for Research papers</h1>
+      <h1 className="animate-charcter">Welcome to Bidding system for Research papers</h1>
     </div>
   );
 }
