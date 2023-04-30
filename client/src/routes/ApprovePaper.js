@@ -8,7 +8,7 @@ import axios from 'axios';
 function ApprovePaper() {
 
   const [state, setState] = useState({web3: null, contract: null});
-  const [paper, setPaper] = useState("Nil");
+  const [paper, setPaper] = useState([]);
   const [author_address, set_author_address] = useState("Nil");
   const [ownerAddress, setAddress] = useState("Nil");
   
@@ -82,6 +82,8 @@ function ApprovePaper() {
             }
           </tbody>
         </table>
+
+        
         <label for="value1">Author address</label>
         <input type = "text" id = "value1" name = "value1"></input>
         <label for="value2">Research paper name</label>
