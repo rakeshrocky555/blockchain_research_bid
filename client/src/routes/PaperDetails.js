@@ -14,31 +14,32 @@ function PaperDetails() {
 
   useEffect(() => {
     //below is the ganache address
-    const provider = new Web3.providers.HttpProvider("HTTP://127.0.0.1:7545");
+    //const provider = new Web3.providers.HttpProvider("HTTP://127.0.0.1:7545");
     async function template(){
-      //web3 object
-      const web3 = new Web3(provider);
-      const networkId = await web3.eth.net.getId();
-      const deployedNetwork = ResearchPaperBid.networks[networkId];
-      web3.eth.getAccounts().then(accounts => {
-        console.log("Owner address is", accounts[0]);
+      try {if(window.ethereum){
+        console.log("Metamask exists");
+        await window.ethereum.request({method: 'eth_requestAccounts'});
+        const web3 = new Web3(window.ethereum);
+        const accounts = await web3.eth.getAccounts();
+        console.log("Owner is", accounts[0]);
+        const networkId = await web3.eth.net.getId();
+        console.log("Network ID is", networkId);
+        console.log("Research paper bid is", ResearchPaperBid.networks);
+        const deployedNetwork = ResearchPaperBid.networks[networkId];
+        console.log("Deployed Network is", deployedNetwork)
+        const contract = new web3.eth.Contract(ResearchPaperBid.abi, deployedNetwork.address, {
+          from: accounts[0],
+          gas: '3000000'
+        });
+        setState({web3: web3, contract: contract});
         setAddress(accounts[0]);
-      });
-      console.log("Contract is deployed by", ownerAddress);
-      //to interact with the smart contract we need two things ABI & contract address
-
-      const contract = new web3.eth.Contract(ResearchPaperBid.abi, deployedNetwork.address, {
-        from: '0xB62C52F829b54c8f27Fa03F12c5573CEe1c0a781',
-        gas: '3000000'
-      });
-
-      //ABC events from solidity
-      
-
-      //setting the state of the application
-      setState({web3: web3, contract: contract});
+      }
     }
-    provider && template();
+    catch (error){
+      console.error(error);
+    }
+    }
+    template();
   }, []);
 
 
