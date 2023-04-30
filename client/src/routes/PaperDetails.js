@@ -32,6 +32,9 @@ function PaperDetails() {
         gas: '3000000'
       });
 
+      //ABC events from solidity
+      
+
       //setting the state of the application
       setState({web3: web3, contract: contract});
     }

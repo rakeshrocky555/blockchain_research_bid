@@ -7,6 +7,9 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract ResearchPapers is ERC721, Ownable {
+    //ABC events
+    event Sample(string msg);
+    
     using Counters for Counters.Counter;
 
     //////////data structures INTIALIZATIONS/DECLARATIONS///////////////////
@@ -82,7 +85,8 @@ contract ResearchPapers is ERC721, Ownable {
     //start bidding by owner/auctioneer
     uint present_token_id;
     function start_bidding(uint id) public onlyOwner{
-         max_price = 0;
+        emit Sample("Open bidding");
+        max_price = 0;
         start = true;
         present_token_id = id;
     }
@@ -99,6 +103,7 @@ contract ResearchPapers is ERC721, Ownable {
 
     //close bidding
     function close_bidding() public payable onlyOwner{
+        
         start = false;
         address payable previous_own = nft_to_paperlink[present_token_id].present_owner;
 
