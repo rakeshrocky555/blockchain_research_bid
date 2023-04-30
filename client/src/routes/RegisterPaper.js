@@ -38,7 +38,7 @@ function RegisterPaper() {
       <input type = "text" id = "value7" name = "value7"></input>
       <label for="value8">Author address</label>
       <input type = "text" id = "value8" name = "value8"></input>
-      <label for="value9">Research Paper data</label>
+      <label for="value9">Research Paper url</label>
       <input type = "text" id = "value9" name = "value9"></input>
       <button onClick={addPaper}>Register</button>
 

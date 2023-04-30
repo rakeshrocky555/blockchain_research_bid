@@ -70,7 +70,7 @@ function ApprovePaper() {
             <tr>
               <th>Author address</th>
               <th>Paper Name</th>
-              <th>Paper Data</th>
+              <th>Paper url</th>
             </tr>
           </thead>
           <tbody>

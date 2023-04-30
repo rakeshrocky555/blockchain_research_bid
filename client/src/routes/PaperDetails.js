@@ -7,6 +7,10 @@ function PaperDetails() {
   const [author_address, set_author_address] = useState("Nil");
   const [state, setState] = useState({web3: null, contract: null});
   const [ownerAddress, setAddress] = useState("Nil");
+  const [prev_owner, setprev_owner] = useState("Nil");
+  const [pres_owner, setpres_owner] = useState("Nil");
+  const [pr_name, setpr_name] = useState("Nil");
+  const [pr_url, setpr_url] = useState("Nil");
 
   useEffect(() => {
     //below is the ganache address
@@ -48,7 +52,13 @@ function PaperDetails() {
     const tokenId = document.querySelector("#value3").value;
     console.log("Token id entered is, ", tokenId);
     //from address below can be from any account
-    (contract.methods.display_PaperDetails(tokenId).call({from: ownerAddress})).then(data => console.log("Research paper details are:", data['id']));
+    (contract.methods.display_PaperDetails(tokenId).call({from: ownerAddress})).then(data => {
+      setpres_owner(data['present_owner']);
+      setprev_owner(data['previous_owner']);
+      setpr_name(data['name']);
+      setpr_url(data['paper_url']);
+      console.log("Research paper details are:", data['id']);
+    });
   }
 
   return (
@@ -62,7 +72,11 @@ function PaperDetails() {
       <button onClick={research_paper_details}>Get Research Paper details</button>
       {/*printing the owner address with the id*/}
       <p>Author address is: {author_address}</p>
-      {/* <p id="owner_address"></p> */}
+      <p>Paper Name is: {pr_name}</p>
+      <p>Present Author is: {pres_owner}</p>
+      <p>Previous Owner is: {prev_owner}</p>
+      <p>Paper url is: {pr_url}</p>
+      <p id="owner_address"></p>
     </div>
     
   );
