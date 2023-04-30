@@ -8,6 +8,7 @@ function Bidding() {
 
   const [author_address, set_author_address] = useState("Nil");
   const [state, setState] = useState({web3: null, contract: null});
+  const [ownerAddress, setAddress] = useState("Nil");
 
   useEffect(() => {
     //below is the ganache address
@@ -17,11 +18,15 @@ function Bidding() {
       const web3 = new Web3(provider);
       const networkId = await web3.eth.net.getId();
       const deployedNetwork = ResearchPaperBid.networks[networkId];
+      web3.eth.getAccounts().then(accounts => {
+        console.log("Owner address is", accounts[0]);
+        setAddress(accounts[0]);
+      });
       console.log(deployedNetwork.address);
       //to interact with the smart contract we need two things ABI & contract address
 
       const contract = new web3.eth.Contract(ResearchPaperBid.abi, deployedNetwork.address, {
-        from: '0xEba1B25c50e0347CA532745078AA06efF6De5b51',
+        from: '0x562E994342D74a13c360C2824DE8582b2dC0FB0a',
         gas: '3000000'
       });
 
@@ -38,7 +43,7 @@ function Bidding() {
     //do we need to use call or send
     //const details = await contract.methods.start_bidding(tokenId).call({from: "0x2D29F6760062F540F168a1fC247b44ffE533c094"});
     
-    const details = await contract.methods.start_bidding(tokenId).send({from: "0xEba1B25c50e0347CA532745078AA06efF6De5b51"});
+    const details = await contract.methods.start_bidding(tokenId).send({from: ownerAddress});
     //for refreshing the page
     window.location.reload();
     return details;
@@ -57,7 +62,7 @@ function Bidding() {
   //close bidding
   async function close_bid(){
     const {contract} = state;
-    await contract.methods.close_bidding().send({from: "0xEba1B25c50e0347CA532745078AA06efF6De5b51"});
+    await contract.methods.close_bidding().send({from: ownerAddress});
     //for refreshing the page
     //window.location.reload();
   }

@@ -9,6 +9,7 @@ import axios from 'axios';
 function RegisterPaper() {
 
     const [papers, setPapers] = useState([]);
+    
     useEffect(() => {
         axios.get('http://localhost:3001/api/registered_paper')
           .then(response => setPapers(response.data))

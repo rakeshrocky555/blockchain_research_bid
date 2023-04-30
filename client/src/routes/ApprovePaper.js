@@ -8,10 +8,21 @@ import axios from 'axios';
 function ApprovePaper() {
 
   const [state, setState] = useState({web3: null, contract: null});
-  const [data, setData] = useState("Nil");
+  const [paper, setPaper] = useState("Nil");
   const [author_address, set_author_address] = useState("Nil");
+  const [ownerAddress, setAddress] = useState("Nil");
   
   useEffect(() => {
+    //below can be used to extract data from table
+    axios.get('http://localhost:3001/api/registered_paper/')
+    .then(res => {
+      console.log("Table data is", res.data.length);
+      setPaper(res.data);
+    })
+    .catch(err => console.log(err));
+
+
+    
     //below is the ganache address
     const provider = new Web3.providers.HttpProvider("HTTP://127.0.0.1:7545");
     async function template(){
@@ -19,11 +30,15 @@ function ApprovePaper() {
       const web3 = new Web3(provider);
       const networkId = await web3.eth.net.getId();
       const deployedNetwork = ResearchPaperBid.networks[networkId];
+      web3.eth.getAccounts().then(accounts => {
+        console.log("Owner address is", accounts[0]);
+        setAddress(accounts[0]);
+      });
       console.log(deployedNetwork.address);
       //to interact with the smart contract we need two things ABI & contract address
 
       const contract = new web3.eth.Contract(ResearchPaperBid.abi, deployedNetwork.address, {
-        from: '0xa073CeBF2FC22BC33Fd626CaFD549E2A00c47d29',
+        from: '0xF9c76881B2A2057DB48a3D8f4148136A1AF53e9E',
         gas: '3000000'
       });
 
@@ -39,7 +54,7 @@ function ApprovePaper() {
     const author_data = document.querySelector("#value1").value;
     const paper_data = document.querySelector("#value2").value;
     //when changing data we need to tell from which account you are changing the data
-    await contract.methods.uploadPaperAndValidate(author_data, paper_data).send({from: "0xa073CeBF2FC22BC33Fd626CaFD549E2A00c47d29"});
+    await contract.methods.uploadPaperAndValidate(author_data, paper_data).send({from: ownerAddress});
     //for refreshing the page
     window.location.reload();
     }
@@ -47,6 +62,26 @@ function ApprovePaper() {
     return (
         <div className="approvepaper">
         {/* <h1>Welcome to Bidding system for Research papers</h1> */}
+        <table>
+          <thead>
+            <tr>
+              <th>Author address</th>
+              <th>Paper Name</th>
+              <th>Paper Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              paper.map((row_val, index) => {
+                return <tr key={index}>
+                  <td>{row_val.author_address}</td>
+                  <td>{row_val.paper_name}</td>
+                  <td>{row_val.paper_data}</td>
+                </tr>
+              })
+            }
+          </tbody>
+        </table>
         <label for="value1">Author address</label>
         <input type = "text" id = "value1" name = "value1"></input>
         <label for="value2">Research paper name</label>

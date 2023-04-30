@@ -6,6 +6,7 @@ function PaperDetails() {
 
   const [author_address, set_author_address] = useState("Nil");
   const [state, setState] = useState({web3: null, contract: null});
+  const [ownerAddress, setAddress] = useState("Nil");
 
   useEffect(() => {
     //below is the ganache address
@@ -15,11 +16,15 @@ function PaperDetails() {
       const web3 = new Web3(provider);
       const networkId = await web3.eth.net.getId();
       const deployedNetwork = ResearchPaperBid.networks[networkId];
-      console.log(deployedNetwork.address);
+      web3.eth.getAccounts().then(accounts => {
+        console.log("Owner address is", accounts[0]);
+        setAddress(accounts[0]);
+      });
+      console.log("Contract is deployed by", ownerAddress);
       //to interact with the smart contract we need two things ABI & contract address
 
       const contract = new web3.eth.Contract(ResearchPaperBid.abi, deployedNetwork.address, {
-        from: '0xEba1B25c50e0347CA532745078AA06efF6De5b51',
+        from: '0x562E994342D74a13c360C2824DE8582b2dC0FB0a',
         gas: '3000000'
       });
 
@@ -34,7 +39,8 @@ function PaperDetails() {
     const {contract} = state;
     const tokenId = document.querySelector("#value3").value;
     console.log("Token id entered is, ", tokenId);
-    (contract.methods.ownerOf(tokenId).call({from: "0xEba1B25c50e0347CA532745078AA06efF6De5b51"})).then(data => set_author_address(data));
+    //from address below can be from any account
+    (contract.methods.ownerOf(tokenId).call({from: ownerAddress})).then(data => set_author_address(data));
   }
 
   return (
