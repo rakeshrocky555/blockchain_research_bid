@@ -79,7 +79,14 @@ function ApprovePaper() {
                 return <tr key={index}>
                   <td>{row_val.author_address}</td>
                   <td>{row_val.paper_name}</td>
-                  <td>{row_val.paper_data}</td>
+                  {/* <td>{row_val.paper_data}</td> */}
+                  <td>
+                    <div>
+                    <a href={row_val.paper_data} target="_blank">
+                        View paper
+                    </a>
+                    </div>
+                  </td>
                 </tr>
               })
             }
