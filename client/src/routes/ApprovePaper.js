@@ -38,7 +38,7 @@ function ApprovePaper() {
       //to interact with the smart contract we need two things ABI & contract address
 
       const contract = new web3.eth.Contract(ResearchPaperBid.abi, deployedNetwork.address, {
-        from: '0xF9c76881B2A2057DB48a3D8f4148136A1AF53e9E',
+        from: '0xB62C52F829b54c8f27Fa03F12c5573CEe1c0a781',
         gas: '3000000'
       });
 
@@ -52,9 +52,12 @@ function ApprovePaper() {
     async function approve_paper(){
     const {contract} = state;
     const author_data = document.querySelector("#value1").value;
-    const paper_data = document.querySelector("#value2").value;
+    const paper_name = document.querySelector("#value2").value;
+    const paper_url = document.querySelector("#value3").value;
+    const id = document.querySelector("#value4").value;
     //when changing data we need to tell from which account you are changing the data
-    await contract.methods.uploadPaperAndValidate(author_data, paper_data).send({from: ownerAddress});
+    await contract.methods.approveAndcreateNFT(author_data, paper_name, paper_url, id).send({from: ownerAddress});
+    //await contract.methods.uploadPaperAndValidate(author_data, paper_data).send({from: ownerAddress});
     //for refreshing the page
     window.location.reload();
     }
@@ -88,6 +91,10 @@ function ApprovePaper() {
         <input type = "text" id = "value1" name = "value1"></input>
         <label for="value2">Research paper name</label>
         <input type = "text" id = "value2" name = "value2"></input>
+        <label for="value3">Paper url</label>
+        <input type = "text" id = "value3" name = "value3"></input>
+        <label for="value4">ID</label>
+        <input type = "text" id = "value4" name = "value4"></input>
         <button onClick={approve_paper}>Approve paper</button>
         </div>
     );

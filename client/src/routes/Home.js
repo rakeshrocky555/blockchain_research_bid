@@ -30,7 +30,7 @@ function Home() {
       //to interact with the smart contract we need two things ABI & contract address
 
       const contract = new web3.eth.Contract(ResearchPaperBid.abi, deployedNetwork.address, {
-        from: '0xEba1B25c50e0347CA532745078AA06efF6De5b51',
+        from: '0xB62C52F829b54c8f27Fa03F12c5573CEe1c0a781',
         gas: '3000000'
       });
 

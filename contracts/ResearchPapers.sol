@@ -15,6 +15,8 @@ contract ResearchPapers is ERC721, Ownable {
         bool verified;
         address payable previous_owner;
         address payable present_owner;
+        uint id;
+        string paper_url;
     }
     PaperDetails[] paperDetails;
     struct PersonalDetails {
@@ -52,20 +54,28 @@ contract ResearchPapers is ERC721, Ownable {
         return "ipfs://happyMonkeyBaseURI/";
     }
 
-    function safeMint(address payable to, string memory name, bool verified) private onlyOwner{
+    function safeMint(address payable to, string memory name, string memory paper_url, uint id, bool verified) private onlyOwner{
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
         //link NFT token to owner and NFT token to paper
         nft_to_personlink[tokenId] = to;
-        nft_to_paperlink[tokenId] = PaperDetails(name, verified, to, to);
+        nft_to_paperlink[tokenId] = PaperDetails(name, verified, to, to, id, paper_url);
     }
 
     //upload and review the research paper
-    function uploadPaperAndValidate(address payable author, string memory paper_name) public onlyOwner{
+    // function uploadPaperAndValidate(address payable author, string memory paper_name) public onlyOwner{
+    //     //assuming the validation is done correctly, updating the verified parmeter of PaperDetails to true
+    //     safeMint(author, paper_name, true);
+    // }
+
+    //approve and create NFT token for the research paper
+    function approveAndcreateNFT(address payable author, string memory paper_name, string memory paper_url, uint id) public onlyOwner{
         //assuming the validation is done correctly, updating the verified parmeter of PaperDetails to true
-        safeMint(author, paper_name, true);
+        safeMint(author, paper_name, paper_url, id, true);
     }
+
+
 
     ///////////////////////////////////Bidding////////////////////////////////////////////////////
 
@@ -90,9 +100,12 @@ contract ResearchPapers is ERC721, Ownable {
     //close bidding
     function close_bidding() public payable onlyOwner{
         start = false;
-        address payable previous_own = nft_to_paperlink[present_token_id].previous_owner;
+        address payable previous_own = nft_to_paperlink[present_token_id].present_owner;
+
+        uint id = nft_to_paperlink[present_token_id].id;
+
         nft_to_personlink[present_token_id] = temp;
-        nft_to_paperlink[present_token_id] = PaperDetails(nft_to_paperlink[present_token_id].name, true, previous_own, temp);
+        nft_to_paperlink[present_token_id] = PaperDetails(nft_to_paperlink[present_token_id].name, true, previous_own, temp, id, nft_to_paperlink[present_token_id].paper_url);
         previous_own.transfer(max_price);
         _transfer(ownerOf(present_token_id), temp, present_token_id);
     }
