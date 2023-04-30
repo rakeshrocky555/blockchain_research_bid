@@ -19,15 +19,25 @@
   background-image: url('./images/image1.jpg');
 }
 
-.bidding,
-.registerpaper{
-  display: flex;
+.bidding{
+  /* display: flex; */
   height: 90vh;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
   background-color: #000;
   color: #fff;
+  background-image: url('./images/image6.jpg');
+}
+
+.registerpaper{
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+  font-size: 12;
+  /* background-color: #44515f; */
+  color: #fff;
+  background-image: url('./images/image2.jpg');
 }
 
 .paperdetails{

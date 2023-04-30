@@ -7,8 +7,10 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract ResearchPapers is ERC721, Ownable {
-    //ABC events
-    event Sample(string msg);
+    //all events
+    event e_closebidding(string msg);
+    event e_openbidding(string msg);
+    event e_NFTMint(string msg);
     
     using Counters for Counters.Counter;
 
@@ -58,6 +60,7 @@ contract ResearchPapers is ERC721, Ownable {
     }
 
     function safeMint(address payable to, string memory name, string memory paper_url, uint id, bool verified) private onlyOwner{
+        emit e_NFTMint("Reviewer has approved paper and NFT is minted");
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
@@ -85,7 +88,7 @@ contract ResearchPapers is ERC721, Ownable {
     //start bidding by owner/auctioneer
     uint present_token_id;
     function start_bidding(uint id) public onlyOwner{
-        emit Sample("Open bidding");
+        emit e_openbidding("Bidding has started");
         max_price = 0;
         start = true;
         present_token_id = id;
@@ -103,7 +106,7 @@ contract ResearchPapers is ERC721, Ownable {
 
     //close bidding
     function close_bidding() public payable onlyOwner{
-        
+        emit e_closebidding("Bidding is closed");
         start = false;
         address payable previous_own = nft_to_paperlink[present_token_id].present_owner;
 

@@ -9,6 +9,8 @@ function Bidding() {
   const [author_address, set_author_address] = useState("Nil");
   const [state, setState] = useState({web3: null, contract: null});
   const [ownerAddress, setAddress] = useState("Nil");
+  const [price, setPrice] = useState(0);
+  const [winner, setWinner] = useState("Nil");
 
   useEffect(() => {
     //below is the ganache address ABC
@@ -77,21 +79,16 @@ function Bidding() {
     console.log("Open bidding", contract);
     
     //ABC
-    contract.events.Sample((error, result) => {
+    contract.events.e_openbidding((error, result) => {
       if (!error){
         console.log("Event result is: ", result);
         //send notif ui
-        alert("Bidding started");
+        alert("Bidding is opened");
       }
     });
-  //   console.log("Contract is", contract);
-  //   contract.events.Sample(function(error, result) {
-  //     if (!error)console.log("Event emitted: ", result);
-  //  });
+
 
     const tokenId = document.querySelector("#value4").value;
-    //do we need to use call or send
-    //const details = await contract.methods.start_bidding(tokenId).call({from: "0x2D29F6760062F540F168a1fC247b44ffE533c094"});
     
     console.log("Before start bid");
     const details = await contract.methods.start_bidding(tokenId).send({from: ownerAddress});
@@ -113,29 +110,53 @@ function Bidding() {
   //close bidding
   async function close_bid(){
     const {contract} = state;
+    contract.events.e_closebidding((error, result) => {
+      if (!error){
+        console.log("Event result is: ", result);
+        //send notif ui
+        alert("Bidding is closed");
+      }
+    });
     await contract.methods.close_bidding().send({from: ownerAddress});
-    //for refreshing the page
-    //window.location.reload();
+  }
+
+  async function get_bid_amount(){
+    const {contract} = state;
+    //const tokenId = document.querySelector("#value3").value;
+    (contract.methods.display_maxBidPrice().call({from: ownerAddress})).then(data => setPrice(data));
+  }
+
+  async function get_highest_bidder(){
+    const {contract} = state;
+    const tokenId = document.querySelector("#value4").value;
+    (contract.methods.ownerOf(tokenId).call({from: ownerAddress})).then(data => setWinner(data));
   }
 
   return (
     <div className="bidding">
-      <h1>Reports</h1>
-      <br></br>
-      <p>Bidding Operations</p>
-      <label for="value4">Bidding token ID</label>
+      <h1>Bidding Window</h1>
+      <br/>
+      <label for="value4">Enter token ID of the NFT</label>
       <input type = "text" id = "value4" name = "value4"></input>
-      <button onClick={open_bidding}>Open Bidding</button>
+      <button onClick={open_bidding} class = "button pdet">Open Bidding</button><br/><br/>
 
       <p>Please enter bidder address and bid value</p>
       <label for="value5">Bidder address</label>
       <input type = "text" id = "value5" name = "value5"></input>
       <label for="value6">Bid Value</label>
       <input type = "text" id = "value6" name = "value6"></input>
-      <button onClick={bid_token}>Bid</button>
+      <button onClick={bid_token} class = "button pdet">Bid</button><br/><br/>
       
 
-      <button onClick={close_bid}>Close Bidding</button>
+      <button onClick={close_bid} class = "button pdet">Close Bidding</button><br/><br/>
+
+      <button onClick={get_bid_amount} class = "button pdet">Reveal bid amount for NFT</button><br/>
+      <p>Highest Bid Price: {price}</p><br/><br/>
+
+      <button onClick={get_highest_bidder} class = "button pdet">Reveal the winner!</button><br/>
+      <p>Winner is: {winner}</p>
+
+
     </div>
 
     

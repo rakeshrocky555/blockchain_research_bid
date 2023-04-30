@@ -33,14 +33,14 @@ function RegisterPaper() {
 
   return (
     <div className="registerpaper">
-      <p>Please enter Research paper name, author address and enter research paper data</p>
-      <label for="value7">Research paper name</label>
-      <input type = "text" id = "value7" name = "value7"></input>
-      <label for="value8">Author address</label>
-      <input type = "text" id = "value8" name = "value8"></input>
+      <h1>Please enter Research paper name, author address and research paper url</h1><br/><br/><br/><br/>
+      <label for="value7">Research paper name  </label>
+      <input type = "text" id = "value7" name = "value7"></input><br/><br/>
+      <label for="value8">Author address             </label>
+      <input type = "text" id = "value8" name = "value8"></input><br/><br/>
       <label for="value9">Research Paper url</label>
-      <input type = "text" id = "value9" name = "value9"></input>
-      <button onClick={addPaper}>Register</button>
+      <input type = "text" id = "value9" name = "value9"></input><br/><br/>
+      <button onClick={addPaper} class = "button pdet">Register</button>
 
     </div>
   );

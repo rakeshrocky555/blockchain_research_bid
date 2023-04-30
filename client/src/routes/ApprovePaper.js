@@ -60,6 +60,14 @@ function ApprovePaper() {
     const paper_name = document.querySelector("#value2").value;
     const paper_url = document.querySelector("#value3").value;
     const id = document.querySelector("#value4").value;
+
+    contract.events.e_NFTMint((error, result) => {
+      if (!error){
+        console.log("Event result is: ", result);
+        //send notif ui
+        alert("Paper is approved and NFT will be minted now");
+      }
+    });
     //when changing data we need to tell from which account you are changing the data
     await contract.methods.approveAndcreateNFT(author_data, paper_name, paper_url, id).send({from: ownerAddress});
     //await contract.methods.uploadPaperAndValidate(author_data, paper_data).send({from: ownerAddress});
