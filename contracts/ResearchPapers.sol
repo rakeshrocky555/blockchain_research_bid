@@ -87,20 +87,33 @@ contract ResearchPapers is ERC721, Ownable {
 
     //start bidding by owner/auctioneer
     uint present_token_id;
+    address payable temp = payable(address(0));
     function start_bidding(uint id) public onlyOwner{
         emit e_openbidding("Bidding has started");
         max_price = 0;
         start = true;
         present_token_id = id;
+        //comment the below
+        temp = payable(address(0));
     }
 
     //assumption only one item can be bidded at a time
     uint public max_price = 0;
-    address payable temp;
+    //uncomment the below
+    //address payable temp;
     function bid() public onlyBidOpen notOwner payable{
         if(msg.value > max_price){
+            //comment below if statement
+            if(temp != payable(address(0))){
+                temp.transfer(max_price);
+            }
             max_price = msg.value;
             temp = payable(msg.sender);
+        }
+        else {
+            address payable temp_sender;
+            temp_sender = payable(msg.sender);
+            temp_sender.transfer(msg.value);
         }
     }
 
