@@ -2,6 +2,10 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": "9.5.0",
+    "node": "18.15.0"
+  },
   "dependencies": {
     "@blueprintjs/core": "^4.18.0",
     "@testing-library/jest-dom": "^5.16.5",
