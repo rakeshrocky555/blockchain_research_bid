@@ -1,1 +1,1 @@
-web: sudo npm --prefix ./client/ start
+web: npm --prefix ./client/ start
