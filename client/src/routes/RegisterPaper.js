@@ -11,7 +11,7 @@ function RegisterPaper() {
     const [papers, setPapers] = useState([]);
     
     useEffect(() => {
-        axios.get('http://localhost:3001/api/registered_paper')
+        axios.get('https://blockchain-db.onrender.com/api/registered_paper')
           .then(response => setPapers(response.data))
           .catch(error => console.error(error));
       }, []);
@@ -21,7 +21,7 @@ function RegisterPaper() {
         const paper_name = document.querySelector("#value7").value;
         const paper_data = document.querySelector("#value9").value;
         const uid = Math.floor(Math.random() * 1000000);
-        axios.post('http://localhost:3001/api/registered_paper/add', { author_address: author_address, paper_name: paper_name, uid: uid, paper_data: paper_data })
+        axios.post('https://blockchain-db.onrender.com/api/registered_paper/add', { author_address: author_address, paper_name: paper_name, uid: uid, paper_data: paper_data })
             .then(response => {
             setPapers([...papers, response.data]);
         //setNewTodoTitle('');
@@ -29,7 +29,7 @@ function RegisterPaper() {
             .catch(error => console.error(error));
     };
 
-    // fetch('http://localhost:3001/api/registered_paper/add', {
+    // fetch('https://blockchain-db.onrender.com/api/registered_paper/add', {
 
   return (
     <div className="registerpaper">

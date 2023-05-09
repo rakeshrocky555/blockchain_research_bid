@@ -16,7 +16,7 @@ function ApprovePaper() {
   
   useEffect(() => {
     //below can be used to extract data from table
-    axios.get('http://localhost:3001/api/registered_paper/')
+    axios.get('https://blockchain-db.onrender.com/api/registered_paper/')
     .then(res => {
       console.log("Table data is", res.data.length);
       setPaper(res.data);
